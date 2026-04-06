@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MedBot Healthcare Assistant</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --bg1: #4f46e5;
+      --bg2: #0f766e;
+      --card: rgba(255, 255, 255, 0.96);
+      --border: rgba(15, 23, 42, 0.12);
+      --text: #111827;
+      --muted: #6b7280;
+      --bubble-user: #2563eb;
+      --bubble-bot: #f8fafc;
+      --bubble-bot-text: #111827;
+      --shadow: 0 24px 64px rgba(15, 23, 42, 0.18);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.22), transparent 25%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .app-shell {
+      width: min(100%, 980px);
+      max-height: 92vh;
+      background: var(--card);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .app-header {
+      padding: 24px 28px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .app-header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      letter-spacing: -0.03em;
+    }
+
+    .app-header p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 820px;
+    }
+
+    .chat-window {
+      padding: 20px 20px 0;
+      overflow-y: auto;
+      background: #f8fafc;
+    }
+
+    .message-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .message-row.user {
+      justify-content: flex-end;
+    }
+
+    .message-row.bot {
+      justify-content: flex-start;
+    }
+
+    .message {
+      max-width: 82%;
+      border-radius: 22px;
+      padding: 18px 20px;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 0.96rem;
+    }
+
+    .message.user {
+      background: var(--bubble-user);
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+
+    .message.bot {
+      background: var(--bubble-bot);
+      color: var(--bubble-bot-text);
+      border: 1px solid var(--border);
+      border-bottom-left-radius: 4px;
+    }
+
+    .message strong {
+      color: var(--text);
+    }
+
+    .message ul {
+      padding-left: 18px;
+      margin: 10px 0 0;
+    }
+
+    .message a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .message a:hover {
+      text-decoration: underline;
+    }
+
+    .chat-footer {
+      border-top: 1px solid var(--border);
+      padding: 18px 22px;
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .chat-input input {
+      flex: 1;
+      min-width: 0;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 14px 16px;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .chat-input button {
+      border-radius: 16px;
+      padding: 14px 20px;
+      min-width: 120px;
+    }
+
+    .typing {
+      color: var(--muted);
+      padding: 0 20px 10px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+    }
+
+    .typing span {
+      display: inline-block;
+    }
+
+    .typing-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #94a3b8;
+      animation: blink 1.2s infinite ease-in-out;
+    }
+
+    .typing-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes blink {
+      0%, 80%, 100% { opacity: 0.25; transform: translateY(0); }
+      40% { opacity: 1; transform: translateY(-3px); }
+    }
+
+    @media (max-width: 720px) {
+      .app-shell {
+        max-height: 100vh;
+      }
+
+      .chat-window {
+        padding: 16px 16px 0;
+      }
+
+      .app-header,
+      .chat-footer {
+        padding: 18px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell shadow-sm">
+    <div class="app-header">
+      <h1>🩺 MedBot Healthcare Assistant</h1>
+      <p>Ask any health question and receive structured guidance, medicine suggestions, and safe advice.</p>
+    </div>
+
+    <div class="chat-window" id="chatWindow"></div>
+
+    <div class="typing" id="typingIndicator">
+      <span>MedBot is typing</span>
+      <span class="typing-dot"></span>
+      <span class="typing-dot"></span>
+      <span class="typing-dot"></span>
+    </div>
+
+    <div class="chat-footer">
+      <div class="chat-input">
+        <input id="messageInput" type="text" placeholder="Type your health question..." autocomplete="off" />
+        <button id="sendButton" class="btn btn-primary">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const chatWindow = document.getElementById('chatWindow');
+    const messageInput = document.getElementById('messageInput');
+    const sendButton = document.getElementById('sendButton');
+    const typingIndicator = document.getElementById('typingIndicator');
+
+    function escapeHtml(value) {
+      return value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function createMessage(content, sender = 'bot') {
+      const row = document.createElement('div');
+      row.className = `message-row ${sender}`;
+
+      const bubble = document.createElement('div');
+      bubble.className = `message ${sender}`;
+      bubble.innerHTML = content;
+
+      row.appendChild(bubble);
+      chatWindow.appendChild(row);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function renderResponse(payload) {
+      let html = `<p><strong>🩺 Condition:</strong><br>${escapeHtml(payload.condition)}</p>`;
+
+      if (payload.description) {
+        html += `<p><strong>📝 Description:</strong><br>${escapeHtml(payload.description)}</p>`;
+      }
+
+      if (payload.treatments && payload.treatments.length) {
+        html += `<p><strong>💊 Treatment Options:</strong></p><ul>`;
+        payload.treatments.forEach(item => {
+          html += `<li>${escapeHtml(item)}</li>`;
+        });
+        html += `</ul>`;
+      } else if (payload.medicines && payload.medicines.length) {
+        html += `<p><strong>💊 Recommended Medicines:</strong></p><ul>`;
+        payload.medicines.forEach(item => {
+          html += `<li>${escapeHtml(item)}</li>`;
+        });
+        html += `</ul>`;
+      }
+
+      if (payload.precautions && payload.precautions.length) {
+        html += `<p><strong>⚠️ Precautions:</strong></p><ul>`;
+        payload.precautions.forEach(item => {
+          html += `<li>${escapeHtml(item)}</li>`;
+        });
+        html += `</ul>`;
+      }
+
+      if (payload.advice && payload.advice.length) {
+        html += `<p><strong>🧾 Additional Advice:</strong></p><ul>`;
+        payload.advice.forEach(item => {
+          html += `<li>${escapeHtml(item)}</li>`;
+        });
+        html += `</ul>`;
+      }
+
+      if (payload.links && payload.links.length) {
+        html += `<p><strong>🔗 Buy Medicines (India):</strong></p><ul>`;
+        payload.links.forEach(link => {
+          html += `<li><a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link)}</a></li>`;
+        });
+        html += `</ul>`;
+      }
+
+      if (payload.learn_more && payload.learn_more.length) {
+        html += `<p><strong>🔗 Learn More:</strong></p><ul>`;
+        payload.learn_more.forEach(link => {
+          html += `<li><a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link)}</a></li>`;
+        });
+        html += `</ul>`;
+      }
+
+      html += `<p><strong>⚠️ Disclaimer:</strong><br>${escapeHtml(payload.disclaimer)}</p>`;
+      return html;
+    }
+
+    function setTyping(isTyping) {
+      typingIndicator.style.display = isTyping ? 'flex' : 'none';
+    }
+
+    async function sendMessage() {
+      const message = messageInput.value.trim();
+      if (!message) return;
+
+      createMessage(`<p>${escapeHtml(message)}</p>`, 'user');
+      messageInput.value = '';
+      setTyping(true);
+      sendButton.disabled = true;
+      messageInput.disabled = true;
+
+      try {
+        const response = await fetch('/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Server returned ${response.status}`);
+        }
+
+        const payload = await response.json();
+        const botHtml = renderResponse(payload);
+        createMessage(botHtml, 'bot');
+      } catch (error) {
+        createMessage(`<p>Sorry, something went wrong. Please try again.</p>`, 'bot');
+        console.error(error);
+      } finally {
+        setTyping(false);
+        sendButton.disabled = false;
+        messageInput.disabled = false;
+        messageInput.focus();
+      }
+    }
+
+    sendButton.addEventListener('click', sendMessage);
+    messageInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        sendMessage();
+      }
+    });
+
+    window.addEventListener('load', () => {
+      createMessage(`<p>Hello! I'm MedBot. Ask me about symptoms, treatments, medicines, or health conditions.</p>`, 'bot');
+      messageInput.focus();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{
+  "suggest medicine for malaria": {
+    "query": "suggest medicine for malaria",
+    "description": "",
+    "source_urls": [],
+    "related_texts": []
+  },
+  "hii": {
+    "query": "hii",
+    "description": "HII",
+    "source_urls": [
+      "https://en.wikipedia.org/wiki/HII",
+      "https://duckduckgo.com/Hii_King_Chiong",
+      "https://duckduckgo.com/Joseph_Hii_Teck_Kwong",
+      "https://duckduckgo.com/Mimi_Hii",
+      "https://duckduckgo.com/Huntington_Ingalls_Industries"
+    ],
+    "related_texts": [
+      "Hii King Chiong A businessman and philanthropist.",
+      "Joseph Hii Teck Kwong A Malaysian prelate of the Roman Catholic Church who has been serving as bishop of the Diocese of...",
+      "Mimi Hii A chemist whose fields of research include application of catalysis to organic synthesis.",
+      "Huntington Ingalls Industries Huntington Ingalls Industries, Inc. is the largest military shipbuilding company in the United...",
+      "H-II A Japanese satellite launch system, which flew seven times between 1994 and 1999, with five...",
+      "H-IIA A retired Japanese expendable launch system that was developed and operated by Mitsubishi Heavy...",
+      "H-IIB A Japanese expendable launch system jointly developed by JAXA and Mitsubishi Heavy Industries.",
+      "H-II Transfer Vehicle An expendable Japanese automated cargo spacecraft designed for International Space Station..."
+    ]
+  },
+  "suggest me medicine for fever": {
+    "query": "suggest me medicine for fever",
+    "description": "",
+    "source_urls": [],
+    "related_texts": []
+  },
+  "suggest me medicine for diabetes": {
+    "query": "suggest me medicine for diabetes",
+    "description": "",
+    "source_urls": [],
+    "related_texts": []
+  },
+  "suggest me medicine for blood pressure": {
+    "query": "suggest me medicine for blood pressure",
+    "description": "",
+    "source_urls": [],
+    "related_texts": []
+  },
+  "sugget me medicine for typhoid": {
+    "query": "sugget me medicine for typhoid",
+    "description": "",
+    "source_urls": [],
+    "related_texts": []
+  }
+}

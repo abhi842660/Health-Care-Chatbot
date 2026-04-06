@@ -1,0 +1,30 @@
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.22.87.149:5001
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [06/Apr/2026 10:29:28] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [06/Apr/2026 10:29:29] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+127.0.0.1 - - [06/Apr/2026 10:29:32] "POST /chat?stream=1 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Apr/2026 10:30:03] "POST /chat?stream=1 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Apr/2026 10:30:36] "POST /chat?stream=1 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Apr/2026 10:45:07] "[36mGET / HTTP/1.1[0m" 304 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.22.87.149:5001
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [06/Apr/2026 10:46:54] "[36mGET / HTTP/1.1[0m" 304 -
+127.0.0.1 - - [06/Apr/2026 10:47:00] "POST /chat?stream=1 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Apr/2026 10:47:15] "POST /chat?stream=1 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Apr/2026 10:47:40] "POST /chat?stream=1 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Apr/2026 10:48:04] "POST /chat?stream=1 HTTP/1.1" 200 -
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.22.87.149:5001
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [06/Apr/2026 10:55:42] "[36mGET / HTTP/1.1[0m" 304 -
+127.0.0.1 - - [06/Apr/2026 10:55:45] "POST /chat?stream=1 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Apr/2026 10:56:17] "POST /chat?stream=1 HTTP/1.1" 200 -
+127.0.0.1 - - [06/Apr/2026 10:56:37] "POST /chat?stream=1 HTTP/1.1" 200 -
